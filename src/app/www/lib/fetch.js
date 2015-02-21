@@ -1,13 +1,13 @@
 /*-----------------------------------------------------------------------------+
 
-	Oh my god... that is so...	
+	Oh my god... that is so...
 	
-		 _               _     
-		| |             | |    
-		| |  _ _|_  __  | |    
-		|/  |/  |  /    |/ \   
+		 _               _
+		| |             | |
+		| |  _ _|_  __  | |
+		|/  |/  |  /    |/ \
 		|__/|__/|_/\___/|   |_/
-		|\                     
+		|\
 		|/
 	
 	* Created by: Graham Robertson
@@ -99,7 +99,7 @@
 		newScript.async = true;
 		newScript.onload = callback;
 		
-		newScript.src = Fetch.keepSrc ? src : _w.URL.createObjectURL(new Blob([code], { type: 'text/javascript' }));
+		newScript.src = Fetch.dev_mode ? src : _w.URL.createObjectURL(new Blob([code], { type: 'text/javascript' }));
 		
 		var topScript = document.getElementsByTagName('script')[0];
 		topScript.parentNode.insertBefore(newScript, topScript);
@@ -149,5 +149,5 @@
 	// EXPORT
 	var Fetch = _w.fetch = batchFetch;
 	Fetch.file = file;
-	Fetch.keepSrc = false;
+	Fetch.dev_mode = false;
 })(window, XMLHttpRequest);
