@@ -1,2 +1,2 @@
-# C.O.D.E
-PigeoLabs Incorporated Team Effort for #CODE2015
+# C.O.D.E.
+CODE Hackathon thingy
