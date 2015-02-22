@@ -11,16 +11,17 @@
 
 */
 (function __main__() {
-
-	global = new (function Global() {
-		this.logged_in = false;
+	var _app = document.getElementById('app');
+	
+	pages.sub('current_page', function(data) {
+		var page = data.new_value;
 		
-		this.extend = gems.Gem;
-		this.extend();
-	})();
-
-	global.sub('logged_in', function(data) {
-		console.dir(data);
+		page.sub('ready', function() {
+			_app.innerHTML = page.render();
+		});
+		
+		page.load();
 	});
-
+	
+	pages.current_page = pages.Splash;
 })();

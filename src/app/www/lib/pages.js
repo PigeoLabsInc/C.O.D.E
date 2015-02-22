@@ -16,9 +16,9 @@ pages = new (function pages() {
 			};
 		};
 
-		function onready() {
+		var onready = function() {
 			this.ready = true;
-		};
+		}.bind(this);
 
 		this.load = function() {
 			if (_template.ready)
@@ -39,11 +39,9 @@ pages = new (function pages() {
 
 	this.current_page = null;
 
-	this.splash = new (function Splash() {
+	this.Splash = new (function Splash() {
 		this.extend = Page;
 		this.extend('Splash', '/html/splash.html');
-
-
 	})();
 
 	this.extend = gems.Gem;
