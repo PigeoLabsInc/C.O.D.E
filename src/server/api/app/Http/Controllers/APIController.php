@@ -86,11 +86,20 @@ class APIController extends Controller {
 		$username = $request->input('username');
 		$password = $request->input('password');
 
-		$user = new User;
-		$user->username = $username;
-		$user->password = $password;
+		$errors = array();
 
-		$user->save();
+		if(!(isset($username)))
+			$errors['username'] = 'not_set';
+		if(!(isset($password)))
+			$errors['password'] = 'not_set';
+
+		if(count($errors) != 0) {
+			$user = new User;
+			$user->username = $username;
+			$user->password = $password;
+
+			$user->save();
+		}
 	}
 
 }
