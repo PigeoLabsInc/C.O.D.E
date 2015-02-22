@@ -5,7 +5,7 @@
 /* This class keeps track of pages and current page state. */
 pages = new (function pages() {
 	var Page = function Page(title, template_file) {
-		var _template = new templates.create(template_file);
+		var _template = templates.create(template_file);
 		this.ready = false;
 
 		function create_model(model) {
