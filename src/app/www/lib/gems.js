@@ -1,12 +1,12 @@
-gems = new (function(_win) {
+gems = new (function() {
 	var pubsub_serial = 0;
 
-	Channel = function Channel(_name) {
+	var Channel = function Channel(_name) {
 		this.name = _name || 'all';
 		this.subscribers = new Array();
 	};
 
-	this.PubSub = function PubSub() {
+	var PubSub = this.PubSub = function PubSub() {
 		var _id = pubsub_serial++;
 		var channels = {};
 
@@ -20,17 +20,20 @@ gems = new (function(_win) {
 		};
 
 		function add_subcriber(channel, callback) {
-			channel.subscribers.push(callback);
-			return channel;
+			return channel.subscribers.push(callback);
 		};
 
-		function remove_subscriber(channel, callback) {
-			channels.splice(index, 1);
-			return channels;
+		function remove_subscriber(channel, index) {
+			channel.subscribers.splice(index, 1);
 		};
 
 		function get_subscriber_indices(callback) {
-			return callback.subscriptions[_id] || callback.subscriptions[_id] = {};
+			if (!callback.subscriptions)
+				callback.subscriptions = {};
+			var indices = callback.subscriptions[_id];
+			if (!indices)
+				callback.subscriptions[_id] = indices = {};
+			return indices;
 		};
 
 		function get_subscriber_index(channel, callback) {
@@ -42,44 +45,82 @@ gems = new (function(_win) {
 			ids[channel.name] = index;
 			return ids;
 		};
+		
+		function unregister_subscription(channel, callback) {
+			var ids = callback.subscriptions[_id];
+			var index = ids[channel.name]
+			delete ids[channel.name];
+			return index;
+		};
 
 		function sub(name, callback) {
-			var channels = get_channel(channels, name);
-			callback.subscriptions = set_sub_index(_id, callback.pubsub_ids, subs.length);
-			add_sub(subs, subs.length, callback);
+			var channel = get_channel(channels, name);
+			callback.subscriptions = register_subscription(
+				channel,
+				callback,
+				add_subscriber(
+					channel,
+					callback
+				)
+			);
 		};
-
+		
 		function unsub(name, callback) {
-			if (arguments.length > 2) {
-				for (var i = 0, l = arguments.length; i < l; i++)
-					unsub(i, ++i);
-			} else {
-				var subs = get_subs(name, callback);
+			var channel = get_channel(channels, name);
+			remove_subscriber(
+				channel,
+				unregister_subscription(channel, callback)
+			);
+		};
+		
+		function send_data_to(items, data) {
+			var func;
+			if (func = items.shift()) {
+				func(data);
+				send_data_to(items, data);
 			}
 		};
-
+		
+		function pub(name, data) {
+			var channel = get_channel(channels, name);
+			send_data_to(channel.subscribers, data);
+		};
+		
 		this.sub = sub;
 		this.unsub = unsub;
+		this.pub = pub;
 	};
-
+	
 	this.Gem = function Gem() {
-
-	};
-})(window);
-
-Gem = (function gems(Function) {
-	var gem_id = 0;
-	Function.prototype.gem_ids = {};
-	function Gem() {
-		var _id = gem_id++;
-		var _properties = {};
-
-		var __constructor__() {
-
+		var _props = {};
+		
+		function getter(prop) {
+			return _props[prop];
 		};
-
-		__constructor__();
+		
+		function setter(prop, val) {
+			_props[prop] = val;
+			this.pub(prop, val);
+			this.pub('all', {
+				property: prop,
+				value: val
+			});
+		};
+		
+		function __constructor__() {
+			for (var prop in this) {
+				var val = this[pubprop];
+				if (val.constructor !== Function) {
+					_props[pubprop] = val;
+					this.__defineGetter__(pubprop, getter.bind(this, pubprop));
+					this.__defineSetter__(pubprob, setter.bind(this, pubprop));
+				}
+			}
+		};
+		__constructor__.call(this);
+		
+		// Extend
+		this.extend = PubSub;
+		this.extend();
 	};
-
-
-})(Function);
+})();
