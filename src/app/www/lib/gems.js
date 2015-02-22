@@ -49,7 +49,6 @@ gems = new (function() {
 		};
 
 		function unregister_subscription(channel, callback) {
-			console.dir(callback.subscriptions);
 			var ids = callback.subscriptions[_id];
 			var index = ids[channel.name]
 			delete ids[channel.name];
