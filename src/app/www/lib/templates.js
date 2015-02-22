@@ -1,4 +1,4 @@
-['./gems.js', './Hogan.js'];
+['./gems.js', './hogan.js'];
 /* This class keeps track of templates, dog. */
 
 templates = new (function Templates() {

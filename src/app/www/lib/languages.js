@@ -4,6 +4,7 @@ languages = new (function Languages() {
 
 	this.english = {
 		splash: {
+			tagline: 'Find your perfect match',
 			label: 'Find your field of interest'
 		},
 		map: {
@@ -13,10 +14,11 @@ languages = new (function Languages() {
 	};
 	this.francais = {
 		splash: {
+			tagline: 'Trouver votre paire parfaite',
 			label: 'Trouver votre domaine d\'intérêt'
 		},
 		map: {
-			message: 'Nous avons trouvé quelques grands matches pour vous!',
+			message: 'Nous avons trouvé quelques grandes matches pour vous!',
 			CTA: 'Savoir plus'
 		}
 	};

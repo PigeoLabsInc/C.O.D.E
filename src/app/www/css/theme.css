@@ -13,5 +13,56 @@ body {
 
 h1, h2, h3 {
 	border-bottom:1px;
-	padding-bottom:10pt;
+}
+
+h2 {
+	font-weight: 300;
+	letter-spacing: 1pt;
+}
+
+a {
+	color: inherit;
+}
+
+.Pane {
+	background-color:#2D3461;
+}
+
+/* Login Bar
+-----------------------------*/
+.LoginBar {
+	color: #666C94;
+	transition: color 0.3s;
+}
+
+.LoginBar:hover {
+	color: #FFF;
+}
+
+.LoginBar a {
+	cursor: pointer;
+}
+
+/* Login Pane
+-----------------------------*/
+.LoginPane, .LoginPane input, .LoginPane button {
+	box-sizing: border-box;
+}
+.LoginPane {
+	background-color: #FFF;
+	box-shadow: 0 0 25px #000;
+	transition:left 500ms, opacity 500ms;
+}
+
+.LoginPane h3 {
+	color: #777;
+	font-weight: 300;
+}
+
+.LoginPane input {
+	padding: 10pt;
+}
+
+.LoginPane button {
+	padding: 10pt 20pt;
 }
