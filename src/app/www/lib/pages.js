@@ -43,6 +43,11 @@ pages = new (function pages() {
 		this.extend = Page;
 		this.extend('Splash', '/html/splash.html');
 	})();
+	
+	this.Map = new (function Map() {
+		this.extend = Page;
+		this.extend('Map', '/html/map.html');
+	})();
 
 	this.extend = gems.Gem;
 	this.extend();
