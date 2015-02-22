@@ -1,8 +1,16 @@
 ['./gems.js'];
 languages = new (function Languages() {
-	this.current = 'en-CA';
-
+	this.current = navigator.language || 'en-CA';
+	
+	this.extend = gems.Gem;
+	this.extend();
+	
 	this.english = {
+		all: {
+			login: 'Login',
+			username: 'Username',
+			password: 'Password'
+		},
 		splash: {
 			tagline: 'Find your perfect match',
 			label: 'Find your field of interest'
@@ -13,6 +21,11 @@ languages = new (function Languages() {
 		}
 	};
 	this.francais = {
+		all: {
+			login: 'Se Connecter',
+			username: 'Nom de l\'Utilisateur',
+			password: 'Mot de Passe'
+		},
 		splash: {
 			tagline: 'Trouver votre paire parfaite',
 			label: 'Trouver votre domaine d\'intérêt'
@@ -22,12 +35,13 @@ languages = new (function Languages() {
 			CTA: 'Savoir plus'
 		}
 	};
-
+	
 	this.codes = {
 		'en-CA': this.english,
+		'en-US': this.english,
 		'fr-CA': this.francais
 	};
-
+	
 	this.get_current = function() {
 		return this.codes[this.current];
 	}.bind(this);

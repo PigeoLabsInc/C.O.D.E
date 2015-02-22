@@ -12,7 +12,7 @@ pages = new (function pages() {
 
 		function create_model(model) {
 			return {
-				glossary: languages.get_current(),
+				words: languages.get_current(),
 				title: title,
 				data: model
 			};
@@ -30,15 +30,13 @@ pages = new (function pages() {
 				_template.load();
 			}
 		}.bind(this);
-
+		
 		this.render = function() {
 			return _template.render(create_model(this.model));
 		}.bind(this);
-
+		
 		this.extend = gems.Gem;
 		this.extend();
-		
-		this.sub('model', this.render);
 	};
 
 	this.current_page = null;

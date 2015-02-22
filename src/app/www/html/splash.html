@@ -1,7 +1,7 @@
 <div class="Wrapper">
 	<div class="LoginBar">
 		<div class="Login">
-			<a>Login</a>
+			<a>{{ words.all.login }}</a>
 		</div>
 		<div class="Language">
 			<a>En</a> |
@@ -9,8 +9,8 @@
 		</div>
 	</div>
 	<div>
-		<h1>Prowlr</h1>
-		<h2>Find your perfect match.</h2>
+		<h1>JobbyLobby</h1>
+		<h2>{{ words.splash.tagline }}</h2>
 
 		<div class="Video">
 			<iframe src="https://www.youtube.com/embed/Qv5fqunQ_4I" frameborder="0" allowfullscreen></iframe>
@@ -18,7 +18,7 @@
 
 		<form>
 			<select>
-				<option>What's your Field of Interest?</option>
+				<option>{{ words.splash.label }}</option>
 				<option>Warlord</option>
 				<option>Black Mage</option>
 				<option>Jerky Smoker</option>
@@ -27,10 +27,10 @@
 	</div>
 </div>
 <div class="LoginPane">
-	<h3>Login here</h3>
+	<h3>{{ words.all.login }}</h3>
 	<form>
-		<input type="text" placeholder="Username">
-		<input type="text" placeholder="Password">
-		<button type="submit">Login</button>
+		<input type="text" placeholder="{{ words.all.username }}">
+		<input type="text" placeholder="{{ words.all.password }}">
+		<button type="submit">{{ words.all.login }}</button>
 	</form>
 </div>

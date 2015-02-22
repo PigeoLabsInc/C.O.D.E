@@ -1,5 +1,6 @@
 ['./gems.js',
-'./morpheus.js'];
+'./morpheus.js',
+'./languages.js'];
 
 panes = new (function Panes(_app) {
 	function Pane(_page, _el) {
@@ -18,10 +19,16 @@ panes = new (function Panes(_app) {
 			set_element();
 		};
 		
-		function set_element() {
+		function render_element() {
 			_el.innerHTML = _page.render();
+		};
+		
+		function set_element() {
+			render_element();
 			_page.el = _el;
 		};
+		
+		languages.sub('current', render_element);
 	};
 	
 	var _previous = null;
