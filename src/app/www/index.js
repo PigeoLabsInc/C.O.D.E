@@ -1,4 +1,5 @@
-['./lib/pages.js'];
+['./lib/pages.js',
+'./lib/panes.js'];
 /*
 
 	 ___  _                  _         _
@@ -18,12 +19,14 @@
 		
 		var onready = function() {
 			page.unsub('ready', onready);
-			_app.innerHTML = page.render();
+			//_app.innerHTML = page.render();
+			panes.push(page);
 		};
 		
-		if (page.ready)
-			_app.innerHTML = page.render();
-		else {
+		if (page.ready) {
+			//_app.innerHTML = page.render();
+			panes.push(page);
+		} else {
 			page.sub('ready', onready);
 			page.load();
 		}

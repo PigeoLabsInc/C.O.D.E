@@ -7,7 +7,7 @@ panes = new (function Panes(_app) {
 		this.el = _el;
 		
 		this.load_page = function() {
-			if (page.ready)
+			if (_page.ready)
 				set_element();
 			else
 				_page.sub('ready', onpageready);
@@ -19,20 +19,26 @@ panes = new (function Panes(_app) {
 		};
 		
 		function set_element() {
+			_el.innerHTML = _page.render();
 			_page.el = _el;
 		};
 	};
+	
+	var _previous = null;
 	
 	function create_pane_el() {
 		var pane = document.createElement('div');
 		pane.className = 'Pane';
 		pane.setCSS('top:0%;left:100%;');
-		pane.addTransition('left', 250, 'ease-out', 60);
+		pane.addTransition('left', 500, 'ease-out', 60);
 		return pane;
 	};
 	
 	function onframe() {
 		this.el.setStyle('left', 0, '%');
+		if (_previous)
+			_previous.el.setStyle('left', -100, '%');
+		_previous = this;
 	};
 	
 	function push_pane(pane) {
