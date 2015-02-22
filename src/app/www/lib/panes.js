@@ -34,11 +34,18 @@ panes = new (function Panes(_app) {
 		return pane;
 	};
 	
+	function onvanish(e) {
+		e.target.removeEventListener('webkitTransitionEnd', onvanish, false);
+		e.target.translation(0, 0, 0, '%');
+		e.target.parentNode.removeChild(e.target);
+	};
+	
 	function onframe() {
 		this.el.translation(-100, 0, 0, '%');
-		console.dir(this.el.style);
-		if (_previous)
+		if (_previous) {
 			_previous.el.translation(-200, 0, 0, '%');
+			_previous.el.addEventListener('webkitTransitionEnd', onvanish, false);
+		}
 		_previous = this;
 	};
 	
@@ -48,7 +55,7 @@ panes = new (function Panes(_app) {
 	};
 	
 	this.push = function(page) {
-		var pane = new Pane(page, create_pane_el());
+		var pane = new Pane(page, page.el || create_pane_el());
 		push_pane(pane);
 		pane.load_page();
 	};
