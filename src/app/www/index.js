@@ -16,11 +16,17 @@
 	pages.sub('current_page', function(data) {
 		var page = data.new_value;
 		
-		page.sub('ready', function() {
+		var onready = function() {
+			page.unsub('ready', onready);
 			_app.innerHTML = page.render();
-		});
+		};
 		
-		page.load();
+		if (page.ready)
+			_app.innerHTML = page.render();
+		else {
+			page.sub('ready', onready);
+			page.load();
+		}
 	});
 	
 	pages.current_page = pages.Splash;
