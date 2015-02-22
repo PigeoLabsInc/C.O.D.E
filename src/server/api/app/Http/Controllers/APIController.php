@@ -8,8 +8,22 @@ use App\Http\Controllers\Controller;
 
 class APIController extends Controller {
 
-	private function generateToken() {
+	public function generateRandomString($length = 10) {
+	    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	    $charactersLength = strlen($characters);
+	    $randomString = '';
+	    for ($i = 0; $i < $length; $i++) {
+	        $randomString .= $characters[rand(0, $charactersLength - 1)];
+	    }
+	    return $randomString;
+	}
 
+	private function generateToken($username) {
+		$random_string = $this->generateRandomString(10);
+		$user = User::where('email', '=', $username);
+		$user->token = $random_string;
+		$user->save();
+		return $random_string; // return token.
 	}
 
 	public function getLogin(Request $request) {
