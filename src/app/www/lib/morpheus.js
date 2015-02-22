@@ -416,7 +416,7 @@
 	// HTMLElement.prototype.transitions = null;
 	// HTMLElement.prototype.transform = null;
 	//
-	// HTMLElement.prototype.__defineSetter__('css', setCSS);
+	HTMLElement.prototype.setCSS = setCSS;
 	HTMLElement.prototype.getStyle = getStyle;
 	HTMLElement.prototype.getStyleNumber = getStyleNumber;
 	HTMLElement.prototype.setStyle = setStyle;

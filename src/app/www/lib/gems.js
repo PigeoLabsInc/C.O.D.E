@@ -26,14 +26,17 @@ gems = new (function() {
 		function remove_subscriber(channel, index) {
 			channel.subscribers.splice(index, 1);
 		};
-
-		function get_subscriber_indices(callback) {
+		
+		function get_subscriptions(callback) {
 			if (!callback.subscriptions)
 				callback.subscriptions = {};
-			var indices = callback.subscriptions[_id];
-			if (!indices)
-				callback.subscriptions[_id] = indices = {};
-			return indices;
+			if (!callback.subscriptions[_id])
+				callback.subscriptions[_id] = {};
+			return callback.subscriptions;
+		};
+		
+		function get_subscriber_indices(callback) {
+			return get_subscriptions(callback)[_id];
 		};
 
 		function get_subscriber_index(channel, callback) {
@@ -42,8 +45,7 @@ gems = new (function() {
 
 		function register_subscription(channel, callback, index) {
 			var ids = get_subscriber_indices(callback);
-			ids[channel.name] = index;
-			return ids;
+			return ids[channel.name] = index;
 		};
 
 		function unregister_subscription(channel, callback) {
@@ -55,7 +57,7 @@ gems = new (function() {
 
 		function sub(name, callback) {
 			var channel = get_channel(channels, name);
-			callback.subscriptions = register_subscription(
+			register_subscription(
 				channel,
 				callback,
 				add_subscriber(

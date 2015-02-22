@@ -5,8 +5,9 @@
 /* This class keeps track of pages and current page state. */
 pages = new (function pages() {
 	var Page = function Page(title, template_file) {
-		var _template = new templates.create(template_file);
+		var _template = templates.create(template_file);
 		this.ready = false;
+		this.model = null;
 
 		function create_model(model) {
 			return {
@@ -29,12 +30,14 @@ pages = new (function pages() {
 			}
 		}.bind(this);
 
-		this.render = function(model) {
-			return _template.render(create_model(model));
-		};
+		this.render = function() {
+			return _template.render(create_model(this.model));
+		}.bind(this);
 
 		this.extend = gems.Gem;
 		this.extend();
+		
+		this.sub('model', this.render);
 	};
 
 	this.current_page = null;
