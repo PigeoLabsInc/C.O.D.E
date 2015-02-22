@@ -29,15 +29,16 @@ panes = new (function Panes(_app) {
 	function create_pane_el() {
 		var pane = document.createElement('div');
 		pane.className = 'Pane';
-		pane.setCSS('top:0%;left:100%;');
-		pane.addTransition('left', 500, 'ease-out', 60);
+		pane.setStyle('left', 100, '%');
+		pane.addTransition('-webkit-transform', 500, 'ease-out', 60);
 		return pane;
 	};
 	
 	function onframe() {
-		this.el.setStyle('left', 0, '%');
+		this.el.translation(-100, 0, 0, '%');
+		console.dir(this.el.style);
 		if (_previous)
-			_previous.el.setStyle('left', -100, '%');
+			_previous.el.translation(-200, 0, 0, '%');
 		_previous = this;
 	};
 	
