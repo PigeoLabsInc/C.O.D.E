@@ -13,12 +13,8 @@ class APIController extends Controller {
 	}
 
 	public function getLogin(Request $request) {
-		$type = $request->input('type');
 		$username = $request->input('username');
 		$password = $request->input('password');
-
-		if(empty($type))
-			$type = 'standard'; // default: standard (alternate: social - for social media logins)
 
 		$errors = array(); // by default, no errors.
 		if(!(isset($username))) {
@@ -72,8 +68,15 @@ class APIController extends Controller {
 		return Response::make(json_encode($data, $status_code));
 	}
 
-	public function postRegister() {
+	public function postRegister(Request $request) {
+		$username = $request->input('username');
+		$password = $request->input('password');
 
+		$user = new User;
+		$user->username = $username;
+		$user->password = $password;
+
+		$user->save();
 	}
 
 }
