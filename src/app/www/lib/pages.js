@@ -9,7 +9,7 @@ pages = new (function pages() {
 		this.ready = false;
 		this.model = null;
 		this.el = null;
-
+		
 		function create_model(model) {
 			return {
 				words: languages.get_current(),
@@ -17,7 +17,7 @@ pages = new (function pages() {
 				data: model
 			};
 		};
-
+		
 		var onready = function() {
 			this.ready = true;
 		}.bind(this);
@@ -38,15 +38,34 @@ pages = new (function pages() {
 		this.extend = gems.Gem;
 		this.extend();
 	};
-
+	
 	this.current_page = null;
-
+	
 	this.Splash = new (function Splash() {
 		this.extend = Page;
 		this.extend('Splash', '/html/splash.html');
 		
+		var onclick = function(e) {
+			var tag = e.target;
+			var tagName = tag.tagName.toLowerCase();
+			var tagClass = tag.className;
+			if (tagName === 'a') {
+				switch(tagClass) {
+					case "lang":
+						languages.current = tag.title;
+						break;
+					case "login":
+						// document.getElementById('login_pane').className = 'open';
+						break;
+					default:
+						// Does nothing...
+						break;
+				}
+			}
+		}.bind(this);
+		
 		var ondom = function(data) {
-			//
+			this.el.addEventListener('click', onclick, false);
 		}.bind(this);
 		
 		this.sub('el', ondom);
@@ -57,11 +76,10 @@ pages = new (function pages() {
 		this.extend('Map', '/html/map.html');
 		
 		function onclick(e) {
-			console.log(e.target);
+			//
 		};
 		
 		var ondom = function(data) {
-			console.log(this.el);
 			this.el.addEventListener('click', onclick, false);
 		}.bind(this);
 		
@@ -70,10 +88,10 @@ pages = new (function pages() {
 	
 	this.Matches = new (function Matches() {
 		this.extend = Page;
-		this.extend('Matches', 'html/matches.html');
+		this.extend('Matches', '/html/matches.html');
 		
 		var ondom = function(data) {
-			console.log(this.el);
+			//
 		}.bind(this);
 		
 		this.sub('el', ondom);

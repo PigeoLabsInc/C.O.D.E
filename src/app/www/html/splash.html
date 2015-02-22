@@ -1,11 +1,10 @@
 <div class="Wrapper">
 	<div class="LoginBar">
-		<div class="Login">
-			<a>{{ words.all.login }}</a>
-		</div>
+		<!--<div class="Login">
+			<a class="login">{{ words.all.login }}</a>
+		</div>-->
 		<div class="Language">
-			<a>En</a> |
-			<a>Fr</a>
+			<a class="lang" title="en-CA">En</a>&nbsp;|&nbsp;<a class="lang" title="fr-CA">Fr</a>
 		</div>
 	</div>
 	<div>
@@ -17,7 +16,7 @@
 		</div>
 
 		<form>
-			<select>
+			<select id="select_box">
 				<option>{{ words.splash.label }}</option>
 				<option>Warlord</option>
 				<option>Black Mage</option>
@@ -26,7 +25,7 @@
 		</form>
 	</div>
 </div>
-<div class="LoginPane">
+<div id="login_pane" class="LoginPane">
 	<h3>{{ words.all.login }}</h3>
 	<form>
 		<input type="text" placeholder="{{ words.all.username }}">
