@@ -8,6 +8,7 @@ pages = new (function pages() {
 		var _template = templates.create(template_file);
 		this.ready = false;
 		this.model = null;
+		this.el = null;
 
 		function create_model(model) {
 			return {
@@ -45,11 +46,39 @@ pages = new (function pages() {
 	this.Splash = new (function Splash() {
 		this.extend = Page;
 		this.extend('Splash', '/html/splash.html');
+		
+		var ondom = function(data) {
+			//
+		}.bind(this);
+		
+		this.sub('el', ondom);
 	})();
 	
 	this.Map = new (function Map() {
 		this.extend = Page;
 		this.extend('Map', '/html/map.html');
+		
+		function onclick(e) {
+			console.log(e.target);
+		};
+		
+		var ondom = function(data) {
+			console.log(this.el);
+			this.el.addEventListener('click', onclick, false);
+		}.bind(this);
+		
+		this.sub('el', ondom);
+	})();
+	
+	this.Matches = new (function Matches() {
+		this.extend = Page;
+		this.extend('Matches', 'html/matches.html');
+		
+		var ondom = function(data) {
+			console.log(this.el);
+		}.bind(this);
+		
+		this.sub('el', ondom);
 	})();
 
 	this.extend = gems.Gem;
